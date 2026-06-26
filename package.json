@@ -1,0 +1,29 @@
+{
+  "name": "second",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Tunez666/second#readme",
+  "bugs": {
+    "url": "https://github.com/Tunez666/second/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tunez666/second.git"
+  },
+  "license": "ISC",
+  "author": "Tunez",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "env": "^0.0.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mysql2": "^3.22.5"
+  }
+}
