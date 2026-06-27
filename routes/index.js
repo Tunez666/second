@@ -6,4 +6,8 @@ console.log("index routes loaded");
 
 router.get("/", indexController.showHome);
 
+router.get("/register", indexController.showRegistration);
+
+router.get("/login", indexController.showLogin);
+
 module.exports = router;
