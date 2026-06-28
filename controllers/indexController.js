@@ -4,10 +4,3 @@ exports.showHome =  (req, res) => {
 
 };
 
-exports.showRegistration = (req, res) => {
-    res.render("auth/registration");
-};
-
-exports.showLogin = (req, res) => {
-    res.render("auth/login");
-};
