@@ -13,18 +13,24 @@
   "license": "ISC",
   "author": "Tunez",
   "type": "commonjs",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "chalk": "^4.1.2",
+    "consola": "^3.4.2",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "env": "^0.0.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "mysql2": "^3.22.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

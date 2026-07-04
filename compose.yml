@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    container_name: second-app
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - .:/app:Z
+      - /app/node_modules
+
+    depends_on:
+      - mysql
+
+    env_file:
+      - .env
+
+  mysql:
+    image: mysql:9
+
+    container_name: second-db
+
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: second
+      MYSQL_USER: second
+      MYSQL_PASSWORD: second
+      FORCE_COLOR: "true"
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:Z
+
+volumes:
+  mysql-data:

@@ -2,10 +2,11 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 require('dotenv').config();
-const db = require("./db/connect.js");
+const logger = require("./utils/logger");
+const { connectWithRetry } = require("./db/connect.js");
 
 const indexRoutes = require("./routes/index");
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/auth.js");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
 
-app.listen(8080, () => {
-    console.log("Server started http://localhost:8080");
+connectWithRetry();
+
+app.listen(3000, () => {
+   logger.info("Server started http://localhost:3000");
 });

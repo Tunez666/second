@@ -1,27 +1,32 @@
-const express = require("express");
 const mysql = require("mysql2/promise");
-const app = express();
-
+const logger = require("../utils/logger");
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
-    password: process.env.DB_PASS,
+    password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
 
-
-(async () => {
-    try {
-        const conn = await pool.getConnection();
-        console.log("MySQL подключена!");
-        conn.release();
-    } catch (err) {
-        console.error("Ошибка подключения к MySQL:", err);
+async function connectWithRetry() {
+    while (true) {
+        try {
+            const conn = await pool.getConnection();
+            logger.success("MySQL connected");
+            conn.release();
+            break;
+        } catch (err) {
+            logger.warn("MySQL in process to connected");
+            await new Promise(resolve => setTimeout(resolve, 3000));
+        }
     }
-})();
+}
 
-module.exports = pool;
+module.exports = {
+    pool,
+    connectWithRetry
+};
