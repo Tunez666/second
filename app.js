@@ -16,6 +16,26 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
+app.use(session({
+    secret: "supersecretkey",  // секретная фраза для подписи куки
+    resave: false,              // не сохранять, если сессия не изменена
+    saveUninitialized: false,   // не сохранять пустые сессии
+    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 день
+}));
+
+app.use((req, res, next) => {
+    res.locals.user = req.session.userId ? {
+        id: req.session.userId,
+        username: req.session.username,
+    } : null;
+
+    next();
+});
+
+const toastMiddleware = require("./middlewares/toastMiddleware");
+
+app.use(toastMiddleware);
+
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
 

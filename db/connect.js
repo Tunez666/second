@@ -27,6 +27,8 @@ async function connectWithRetry() {
 }
 
 module.exports = {
+    query: pool.query.bind(pool),  // Добавляем метод query
+    getConnection: pool.getConnection.bind(pool),
     pool,
     connectWithRetry
 };

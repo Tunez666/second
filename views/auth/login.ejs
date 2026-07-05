@@ -23,12 +23,12 @@
         </p>
 
 
-        <form class="auth-form">
+        <form class="auth-form" action="/login" method="POST">
 
-            <input type="email" placeholder="Email">
+            <input type="email" placeholder="Email" name="email">
 
 
-            <input type="password" placeholder="Пароль">
+            <input type="password" placeholder="Пароль" name="password">
 
 
             <button class="btn">
@@ -49,3 +49,4 @@
     </div>
 
 </div>
+<%- include("../partials/toast") %>
