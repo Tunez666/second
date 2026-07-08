@@ -7,6 +7,8 @@ const { connectWithRetry } = require("./db/connect.js");
 
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth.js");
+const userRoutes = require("./routes/user.js");
+const modalsRoutes = require("./routes/modals.js");
 
 const app = express();
 
@@ -38,6 +40,8 @@ app.use(toastMiddleware);
 
 app.use("/", indexRoutes);
 app.use("/", authRoutes);
+app.use("/", userRoutes);
+app.use("/", modalsRoutes);
 
 connectWithRetry();
 

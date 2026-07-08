@@ -1,0 +1,94 @@
+<%- include('../partials/head') %>
+
+<body>
+
+<div class="dashboard">
+
+    <%- include('../partials/userSidebar') %>
+
+    <!-- Content -->
+
+    <main class="content">
+
+        <h1 class="page-title">
+            Дашборд рабочих пространств
+        </h1>
+
+        <!-- Greeting -->
+
+        <section class="welcome-card">
+
+            <h2>
+                Привет, <%= user.username %>!
+            </h2>
+
+            <p>
+                 <span id="time-display"></span> чтобы продолжить работу над своими проектами.
+            </p>
+
+        </section>
+
+        <!-- Spaces -->
+
+        <section class="spaces">
+
+            <% if (workspaces && workspaces.length > 0) { %>
+
+    <% workspaces.forEach(workspace => { %>
+
+        <article class="space-card">
+
+            <div class="space-card__header">
+
+                <h3><%= workspace.name %></h3>
+
+                <span><%= workspace.task_count %> задач</span>
+
+            </div>
+
+            <% if (workspace.title) { %>
+
+                <div class="space-card__content">
+
+                    <p class="last-task">
+                        <%= workspace.title %>
+                    </p>
+
+                    <h4>
+                        <%= workspace.content %>
+                    </h4>
+
+                    <p class="task-date">
+                        <%= workspace.created_at %>
+                    </p>
+
+                </div>
+
+            <% } else { %>
+
+                <div class="space-card__content">
+                    <p>Задачи еще не созданы.</p>
+                </div>
+
+            <% } %>
+
+        </article>
+
+    <% }) %>
+
+<% } else { %>
+
+    <p>У вас нет рабочих пространств. Создайте новое, чтобы начать работу.</p>
+
+<% } %>
+             
+
+        </section>
+
+    </main>
+        <%- include('../modals/createWs') %>
+</div>
+<%- include("../partials/toast") %>
+</body>
+
+</html>

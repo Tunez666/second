@@ -13,6 +13,7 @@ create table workspaces(
 id int primary key auto_increment,
 name varchar(255) not null,
 id_user int not null,
+description text,
 created_at timestamp default current_timestamp,
 updated_at timestamp default current_timestamp on update current_timestamp,
 foreign key (id_user) references users(id)

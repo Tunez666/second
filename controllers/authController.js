@@ -77,6 +77,7 @@ exports.login = async(req, res) => {
     
     req.session.userId = user.id;
     req.session.username = user.username;
+    req.session.email = user.email;
 
     req.session.toast = {
     type:"success",

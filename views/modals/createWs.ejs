@@ -1,0 +1,61 @@
+<div class="modal-overlay" id="createWorkspaceModal">
+
+    <div class="modal">
+
+        <div class="modal__header">
+            <h2>Новое пространство</h2>
+            <button
+                class="modal__close"
+                type="button"
+                data-close-modal>
+                &times;
+            </button>
+            </div>
+
+        <p class="modal__subtitle">
+            Пространство объединяет задачи, заметки и материалы вокруг одной цели.
+        </p>
+
+        <form action="/createWs" method="POST">
+
+            <div class="form-group">
+                <label for="workspace-name">Название</label>
+                <input
+                    id="workspace-name"
+                    type="text"
+                    name="name"
+                    placeholder="Например: Учёба"
+                    maxlength="60"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="workspace-description">Описание</label>
+                <textarea
+                    id="workspace-description"
+                    name="description"
+                    rows="4"
+                    placeholder="Коротко расскажи, для чего это пространство..."
+                ></textarea>
+            </div>
+
+            <button
+              type="button"
+                class="btn btn-outline"
+                 data-close-modal>
+                     Отмена
+            </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Создать пространство
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
