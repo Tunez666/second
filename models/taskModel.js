@@ -27,3 +27,22 @@ WHERE w.id_user = ?;
 
     return result;
 };
+
+exports.tasksFromWs = async(id_workspace) => {
+    const sql = `
+SELECT
+    t.id,
+    t.id_ws,
+    t.title,
+    t.status,
+    t.created_at
+FROM tasks t
+JOIN workspaces w
+    ON w.id = t.id_ws
+WHERE w.id = ?;
+    `;
+
+    const [result] = await db.query(sql, [id_workspace]);
+
+    return result;
+};

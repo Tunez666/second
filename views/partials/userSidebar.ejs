@@ -6,27 +6,33 @@
 
         <div class="sidebar__workspace">
 
-            <label>Рабочее пространство</label>
+            <label>Сейчас работаю над</label>
 
-            <select>
-                <option>Все пространства</option>
-                <option>Огород</option>
-                <option>Спорт</option>
-                <option>Работа</option>
+            <form action="/workspace/select" method="POST">
+
+            <select id="workspace-select" name="workspaceId" onchange="this.form.submit()">
+                <% if (workspaces && workspaces.length > 0) { %>
+                 <% workspaces.forEach(workspace => { %>
+                    <option value="<%= workspace.id %>"><%= workspace.name %></option>
+                <% }) %>
+                <% } else { %>
+                    <option value="">Нет рабочих пространств</option>
+                <% } %>
             </select>
-
+            </form>
         </div>
 
         <nav class="sidebar__nav">
 
-            <a href="#">🏠 Дашборд</a>
-            <a href="#">✅ Мои задачи</a>
-            <a href="#">📝 Мои заметки</a>
-            <a href="#">📅 Календарь</a>
-            <a href="#">📚 База знаний</a>
-            <a href="#">📊 Статистика</a>
-            <a href="#">⚙ Настройки</a>
-            
+            <a href="/dashboard"> Дашборд</a>
+            <a href="/workspace/<%= currentWorkspace %>/tasks"> Мои задачи</a>
+
+            <a href="/notes/<%= currentWorkspace %>"> Мои заметки</a>
+            <a href="/calendar/<%= currentWorkspace %>"> Календарь</a>
+            <a href="/knowledge-base/<%= currentWorkspace %>"> База знаний</a>
+            <a href="/statistics/<%= currentWorkspace %>"> Статистика</a>
+            <a href="/settings"> Настройки</a>
+
             <button id="theme-toggle" class="theme-toggle">
     🌙
 </button>

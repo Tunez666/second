@@ -16,6 +16,29 @@ exports.showDashboard =  async(req, res) => {
     ws.lastTask = lastTasks.find(task => task.id_ws === ws.id) || null;
 });
 
-    res.render("user/dashboard", { user, workspaces });
-
+    res.render("user/dashboard", { user, workspaces, currentWorkspace:req.session.workspaceId });
+    console.log(
+    "Текущее пространство:",
+    req.session.workspaceId
+);
 };
+
+
+exports.showTasks = async(req,res)=>{
+
+const userId = req.session.userId;
+const workspaceId = req.params.workspaceId;
+
+const workspaces = await wfModel.allWorkspaces(userId);
+const tasks = await taskModel.tasksFromWs(workspaceId);
+
+res.render(
+"user/tasks",
+{
+    workspaces,
+    tasks,
+    workspaceId
+}
+);
+};
+

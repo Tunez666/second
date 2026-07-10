@@ -1,5 +1,25 @@
 const db = require("../db/connect.js");
 
+exports.getWorkspaceById = async(id, userId)=>{
+
+const sql = `
+SELECT *
+FROM workspaces
+WHERE id = ?
+AND id_user = ?
+`;
+const [result] = await db.query(
+    sql,
+    [
+        id,
+        userId
+    ]
+);
+
+return result[0];
+
+};
+
 exports.allWorkspaces = async(id_user) => {
     const sql = `
       SELECT

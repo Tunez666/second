@@ -9,6 +9,10 @@ const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth.js");
 const userRoutes = require("./routes/user.js");
 const modalsRoutes = require("./routes/modals.js");
+const workspaceRoutes = require("./routes/workspace.js");
+
+const toastMiddleware = require("./middlewares/toastMiddleware");
+const currentWs = require("./middlewares/currentWs");
 
 const app = express();
 
@@ -34,9 +38,8 @@ app.use((req, res, next) => {
     next();
 });
 
-const toastMiddleware = require("./middlewares/toastMiddleware");
-
 app.use(toastMiddleware);
+app.use(currentWs);
 
 app.use("/", indexRoutes);
 app.use("/", authRoutes);

@@ -1,0 +1,103 @@
+<%- include('../partials/head') %>
+
+<body>
+
+<div class="dashboard">
+
+    <%- include('../partials/userSidebar') %>
+
+    <main class="content">
+
+        <div class="tasks-header">
+
+            <h1 class="page-title">
+                Мои задачи
+            </h1>
+
+            <button
+                class="btn"
+                data-modal="createTaskModal">
+
+                + Создать задачу
+
+            </button>
+
+        </div>
+
+        <% if(tasks && tasks.length > 0){ %>
+
+            <section class="tasks">
+
+                <% tasks.forEach(task=>{ %>
+
+                <article class="task-card">
+
+                    <div class="task-card__header">
+
+                        <h3>
+                            <%= task.title %>
+                        </h3>
+
+                        <span class="task-status">
+                            <%= task.status %>
+                        </span>
+
+                    </div>
+
+                    <p class="task-description">
+
+                        <%= task.description %>
+
+                    </p>
+
+                    <div class="task-card__footer">
+
+                        <span>
+
+                            <%= task.created_at %>
+
+                        </span>
+
+                    </div>
+
+                </article>
+
+                <% }) %>
+
+            </section>
+
+        <% } else { %>
+
+            <section class="empty-state">
+
+                <h2>
+                    Пока задач нет
+                </h2>
+
+                <p>
+
+                    Создайте первую задачу для выбранного пространства.
+
+                </p>
+
+                <button
+                    class="btn"
+                    data-modal="createTaskModal">
+
+                    Создать задачу
+
+                </button>
+
+            </section>
+
+        <% } %>
+
+    </main>
+
+</div>
+
+<%- include("../modals/createTaskModal") %>
+
+</body>
+
+</html>
