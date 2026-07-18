@@ -9,4 +9,7 @@ logger.info("modals routes loaded");
 
 router.post("/createWs", authMiddleware.isAuth, modalsController.createWs);
 
+router.post("/workspace/:workspaceId/tasks", authMiddleware.isAuth, modalsController.createTask);
+
+
 module.exports = router;

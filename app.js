@@ -45,6 +45,7 @@ app.use("/", indexRoutes);
 app.use("/", authRoutes);
 app.use("/", userRoutes);
 app.use("/", modalsRoutes);
+app.use("/", workspaceRoutes);
 
 connectWithRetry();
 

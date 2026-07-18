@@ -36,9 +36,6 @@ exports.selectWorkspace = async (req, res) => {
     const { workspaceId } = req.body;
     const userId = req.session.userId;
 
-    console.log(req.body);
-     console.log("Выбрано пространство:", workspaceId);
-
     const workspace = await wfModel.getWorkspaceById(workspaceId, userId);
 
     if (!workspace) {

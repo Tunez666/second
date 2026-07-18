@@ -1,52 +1,64 @@
 <aside class="sidebar">
 
-        <div class="sidebar__logo">
-            🌿 <span>LifeTree</span>
-        </div>
+    <div class="sidebar__logo">
+        🌿 <span>LifeTree</span>
+    </div>
 
-        <div class="sidebar__workspace">
+    <div class="sidebar__workspace">
 
-            <label>Сейчас работаю над</label>
+        <label>Сейчас работаю над</label>
 
-            <form action="/workspace/select" method="POST">
+        <form action="/workspace/select" method="POST">
 
             <select id="workspace-select" name="workspaceId" onchange="this.form.submit()">
-                <% if (workspaces && workspaces.length > 0) { %>
-                 <% workspaces.forEach(workspace => { %>
-                    <option value="<%= workspace.id %>"><%= workspace.name %></option>
-                <% }) %>
-                <% } else { %>
-                    <option value="">Нет рабочих пространств</option>
-                <% } %>
+                <% if (workspaces && workspaces.length> 0) { %>
+                    <% if (!workspaceId) { %>
+                        <option value="">
+                            Выберите пространство
+                        </option>
+                        <% } %>
+                            <% workspaces.forEach(workspace=> { %>
+
+                                <option value="<%= workspace.id %>" <%=String(workspace.id)===String(workspaceId)
+                                    ? "selected" : "" %>
+                                    >
+                                    <%= workspace.name %>
+                                </option>
+                                <% }) %>
+                                    <% } else { %>
+
+                                        <option value="">
+                                            Нет рабочих пространств
+                                        </option>
+                                        <% } %>
+
             </select>
-            </form>
-        </div>
+        </form>
+    </div>
 
-        <nav class="sidebar__nav">
+    <nav class="sidebar__nav">
 
-            <a href="/dashboard"> Дашборд</a>
-            <a href="/workspace/<%= currentWorkspace %>/tasks"> Мои задачи</a>
+        <a href="/dashboard"> Дашборд</a>
+        <a href="/workspace/<%= currentWorkspace %>/tasks"> Мои задачи</a>
 
-            <a href="/notes/<%= currentWorkspace %>"> Мои заметки</a>
-            <a href="/calendar/<%= currentWorkspace %>"> Календарь</a>
-            <a href="/knowledge-base/<%= currentWorkspace %>"> База знаний</a>
-            <a href="/statistics/<%= currentWorkspace %>"> Статистика</a>
-            <a href="/settings"> Настройки</a>
+        <a href="/notes/<%= currentWorkspace %>"> Мои заметки</a>
+        <a href="/calendar/<%= currentWorkspace %>"> Календарь</a>
+        <a href="/knowledge-base/<%= currentWorkspace %>"> База знаний</a>
+        <a href="/statistics/<%= currentWorkspace %>"> Статистика</a>
+        <a href="/settings"> Настройки</a>
 
-            <button id="theme-toggle" class="theme-toggle">
-    🌙
-</button>
+        <button id="theme-toggle" class="theme-toggle">
+            🌙
+        </button>
 
-        </nav>
+    </nav>
 
-        <div class="sidebar__footer">
+    <div class="sidebar__footer">
 
-            <button
-            class="btn btn-primary"
-            data-modal="createWorkspaceModal">
-                + Создать пространство
-            </button>
+        <button class="btn btn-primary" data-modal="createWorkspaceModal">
+            + Создать пространство
+        </button>
 
-        </div>
+    </div>
 
-    </aside>
+</aside>

@@ -1,94 +1,142 @@
 <%- include('../partials/head') %>
 
-<body>
+    <body>
 
-<div class="dashboard">
+        <div class="dashboard">
 
-    <%- include('../partials/userSidebar') %>
+            <%- include('../partials/userSidebar') %>
 
-    <!-- Content -->
+                <!-- Content -->
 
-    <main class="content">
+                <main class="content">
 
-        <h1 class="page-title">
-            Дашборд рабочих пространств
-        </h1>
+                    <h1 class="page-title">
+                        Дашборд рабочих пространств
+                    </h1>
 
-        <!-- Greeting -->
+                    <!-- Greeting -->
 
-        <section class="welcome-card">
+                    <section class="welcome-card">
 
-            <h2>
-                Привет, <%= user.username %>!
-            </h2>
+                        <h2>
+                            Привет, <%= user.username %>!
+                        </h2>
 
-            <p>
-                 <span id="time-display"></span> чтобы продолжить работу над своими проектами.
-            </p>
+                        <p>
+                            <span id="time-display"></span> чтобы продолжить работу над своими проектами.
+                        </p>
 
-        </section>
+                    </section>
 
-        <!-- Spaces -->
+                    <!-- Spaces -->
 
-        <section class="spaces">
+                    <section class="spaces">
 
-            <% if (workspaces && workspaces.length > 0) { %>
+                        <% if (workspaces && workspaces.length> 0) { %>
 
-    <% workspaces.forEach(workspace => { %>
+                            <% workspaces.forEach(workspace=> { %>
 
-        <article class="space-card">
+                                <article class="space-card">
 
-            <div class="space-card__header">
+                                    <div class="space-card__header">
 
-                <h3><%= workspace.name %></h3>
+                                        <h3>
+                                            <%= workspace.name %>
+                                        </h3>
 
-                <span><%= workspace.task_count %> задач</span>
+                                        <span>
+                                            <%= workspace.task_count %> задач
+                                        </span>
 
-            </div>
+                                    </div>
 
-            <% if (workspace.title) { %>
 
-                <div class="space-card__content">
+                                    <% if(workspace.activeTasks.length> 0){ %>
 
-                    <p class="last-task">
-                        <%= workspace.title %>
-                    </p>
 
-                    <h4>
-                        <%= workspace.content %>
-                    </h4>
+                                        <div class="active-tasks">
 
-                    <p class="task-date">
-                        <%= workspace.created_at %>
-                    </p>
 
-                </div>
+                                            <p class="active-tasks__title">
+                                                В работе
+                                            </p>
 
-            <% } else { %>
 
-                <div class="space-card__content">
-                    <p>Задачи еще не созданы.</p>
-                </div>
+                                            <% workspace.activeTasks.forEach(task=> { %>
 
-            <% } %>
 
-        </article>
+                                                <div class="task-preview">
 
-    <% }) %>
 
-<% } else { %>
+                                                    <h4>
+                                                        <%= task.title %>
+                                                    </h4>
 
-    <p>У вас нет рабочих пространств. Создайте новое, чтобы начать работу.</p>
 
-<% } %>
-             
+                                                    <div class="task-preview__meta">
 
-        </section>
 
-    </main>
-        <%- include('../modals/createWs') %>
-</div>
-<%- include("../partials/toast") %>
-</body>
+                                                        <span class="task-status">
 
-</html>
+                                                            <%= task.status.icon %>
+
+                                                                <%= task.status.label %>
+
+                                                        </span>
+
+
+                                                        <span class="task-date">
+
+                                                            <%= task.date %>
+
+                                                        </span>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <% }) %>
+
+
+                                        </div>
+
+
+                                        <% } else { %>
+
+
+                                            <div class="empty-task">
+
+                                                Активных задач нет
+
+                                            </div>
+
+
+                                            <% } %>
+                                                <a href="/workspace/<%= workspace.id %>/tasks" class="space-card__link">
+                                                    Открыть задачи
+                                                    <span>→</span>
+                                                </a>
+
+                                </article>
+
+                                <% }) %>
+
+                                    <% } else { %>
+
+                                        <p>У вас нет рабочих пространств. Создайте новое, чтобы начать работу.</p>
+
+                                        <% } %>
+
+
+                    </section>
+
+                </main>
+                <%- include('../modals/createWs') %>
+        </div>
+        <%- include("../partials/toast") %>
+    </body>
+
+    </html>
