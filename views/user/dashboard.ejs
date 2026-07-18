@@ -115,7 +115,7 @@
 
 
                                             <% } %>
-                                                <a href="/workspace/<%= workspace.id %>/tasks" class="space-card__link">
+                                                <a href="/tasks" class="space-card__link">
                                                     Открыть задачи
                                                     <span>→</span>
                                                 </a>
@@ -134,9 +134,10 @@
                     </section>
 
                 </main>
-                <%- include('../modals/createWs') %>
+                
         </div>
         <%- include("../partials/toast") %>
+        <%- include('../modals/createWs') %>
     </body>
 
     </html>
