@@ -14,6 +14,7 @@ const workspaceRoutes = require("./routes/workspace.js");
 const toastMiddleware = require("./middlewares/toastMiddleware");
 const currentWs = require("./middlewares/currentWs");
 
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 
 app.use(toastMiddleware);
 app.use(currentWs);
+
 
 app.use("/", indexRoutes);
 app.use("/", authRoutes);

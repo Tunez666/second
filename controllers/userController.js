@@ -8,7 +8,6 @@ const { formatDate } = require("../utils/dateFormatter");
 exports.showDashboard = async (req, res) => {
     const email = req.session.email;
     const id = req.session.userId;
-    const workspaceId = req.params.workspaceId;
 
     const user = await userModel.selectUserByEmail(email);
 
@@ -35,7 +34,7 @@ exports.showDashboard = async (req, res) => {
             }));
 
     });
-    res.render("user/dashboard", { user, workspaces, workspaceId });
+    res.render("user/dashboard", { user, workspaces });
 };
 
 exports.showTasks = async (req, res) => {
@@ -43,9 +42,17 @@ exports.showTasks = async (req, res) => {
     try {
 
         const userId = req.session.userId;
-        const workspaceId = req.params.workspaceId;
+
+        const workspaceId = req.session.workspaceId;
+
+
+        if (!workspaceId) {
+            return res.redirect("/dashboard");
+        }
+
 
         const workspaces = await wfModel.allWorkspaces(userId);
+
 
         const workspace = await wfModel.getWorkspaceById(
             workspaceId,
@@ -87,5 +94,3 @@ exports.showTasks = async (req, res) => {
     }
 
 };
-
-

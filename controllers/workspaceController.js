@@ -1,7 +1,7 @@
 const wfModel = require("../models/wfModel");
 
 
-exports.showWorkspace = async(req,res)=>{
+exports.showWorkspace = async (req, res) => {
 
     const userId = req.session.userId;
 
@@ -14,10 +14,10 @@ exports.showWorkspace = async(req,res)=>{
     );
 
 
-    if(!workspace){
+    if (!workspace) {
 
         return res.status(404)
-        .send("Пространство не найдено");
+            .send("Пространство не найдено");
 
     }
 
@@ -33,16 +33,25 @@ exports.showWorkspace = async(req,res)=>{
 
 exports.selectWorkspace = async (req, res) => {
 
-    const { workspaceId } = req.body;
+    const {
+        workspaceId,
+        redirect
+    } = req.body;
+
+
     const userId = req.session.userId;
 
-    const workspace = await wfModel.getWorkspaceById(workspaceId, userId);
 
-    if (!workspace) {
-        return res.redirect("/dashboard");
-    }
+    const workspace =
+        await wfModel.getWorkspaceById(
+            workspaceId,
+            userId
+        );
+
 
     req.session.workspaceId = workspaceId;
 
-    res.redirect("/dashboard");
+
+    res.redirect(redirect || "/dashboard");
+
 };

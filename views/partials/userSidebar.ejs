@@ -10,27 +10,29 @@
 
         <form action="/workspace/select" method="POST">
 
+            <input type="hidden" name="redirect" value="<%= currentPath %>">
+
             <select id="workspace-select" name="workspaceId" onchange="this.form.submit()">
-                <% if (workspaces && workspaces.length> 0) { %>
-                    <% if (!workspaceId) { %>
-                        <option value="">
-                            Выберите пространство
-                        </option>
-                        <% } %>
-                            <% workspaces.forEach(workspace=> { %>
 
-                                <option value="<%= workspace.id %>" <%=String(workspace.id)===String(workspaceId)
-                                    ? "selected" : "" %>
-                                    >
-                                    <%= workspace.name %>
-                                </option>
-                                <% }) %>
-                                    <% } else { %>
 
-                                        <option value="">
-                                            Нет рабочих пространств
-                                        </option>
-                                        <% } %>
+                <option value="">
+                    Выберите пространство
+                </option>
+
+
+                <% workspaces.forEach(workspace=> { %>
+
+                    <option value="<%= workspace.id %>" <%=String(workspace.id)===String(workspaceId) ? "selected" : ""
+                        %>
+                        >
+
+                        <%= workspace.name %>
+
+                    </option>
+
+
+                    <% }) %>
+
 
             </select>
         </form>
@@ -39,7 +41,7 @@
     <nav class="sidebar__nav">
 
         <a href="/dashboard"> Дашборд</a>
-        <a href="/workspace/<%= currentWorkspace %>/tasks"> Мои задачи</a>
+        <a href="/tasks"> Мои задачи</a>
 
         <a href="/notes/<%= currentWorkspace %>"> Мои заметки</a>
         <a href="/calendar/<%= currentWorkspace %>"> Календарь</a>

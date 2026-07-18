@@ -1,7 +1,14 @@
-module.exports = (req, res, next) => {
+module.exports = (req,res,next)=>{
 
-    res.locals.currentWorkspace =
+    res.locals.currentWorkspace = 
         req.session.workspaceId || null;
+
+
+    res.locals.workspaceId =
+        req.session.workspaceId || null;
+
+    res.locals.currentPath = req.originalUrl;
+
 
     next();
 
