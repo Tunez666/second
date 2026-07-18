@@ -94,3 +94,31 @@ exports.showTasks = async (req, res) => {
     }
 
 };
+
+//отображение конкретной задачи по id на станице тасков
+exports.getTask = async(req,res)=>{ 
+
+
+    const userId = req.session.userId;
+
+    const taskId = req.params.id;
+
+
+    const task = await taskModel.getTaskById(
+        taskId,
+        userId
+    );
+
+
+    if(!task){
+
+        return res.status(404).json({
+            message:"Задача не найдена"
+        });
+
+    }
+
+
+    res.json(task);
+
+};

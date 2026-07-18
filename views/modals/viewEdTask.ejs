@@ -1,0 +1,133 @@
+<div class="modal-overlay" id="taskViewModal">
+
+    <div class="modal">
+
+        <div class="modal__header">
+            <h2>Просмотр и редактирование задачи</h2>
+
+            <button class="modal__close" type="button" data-close-modal>
+                &times;
+            </button>
+
+        </div>
+
+
+        <p class="modal__subtitle">
+            Задачи помогают освободить голову и структурировать день.
+        </p>
+
+
+        <form id="task-view-form">
+
+
+            <div class="form-group">
+
+                <label for="view-task-title">
+                    Название
+                </label>
+
+                <input id="view-task-title" type="text" name="title" placeholder="Например: Сделать..." maxlength="60"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="view-task-description">
+                    Описание
+                </label>
+
+                <textarea id="view-task-description" name="description" rows="4"
+                    placeholder="Коротко расскажи, что за задача и зачем она нужна"></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="view-task-start-date">
+                    Начало
+                </label>
+
+                <input id="view-task-start-date" type="datetime-local" name="start_date">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="view-task-due-date">
+                    Дедлайн
+                </label>
+
+                <input id="view-task-due-date" type="datetime-local" name="due_date">
+
+            </div>
+
+
+            <div class="form-group checkbox-group">
+
+                <label class="checkbox">
+
+                    <input id="view-task-all-day" type="checkbox" name="all_day" value="1">
+
+                    <span>
+                        Весь день
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="view-task-status">
+                    Статус
+                </label>
+
+                <select id="view-task-status" name="status">
+
+                    <option value="todo">
+                        Не начато
+                    </option>
+
+                    <option value="in_progress">
+                        В процессе
+                    </option>
+
+                    <option value="done">
+                        Завершено
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal__actions">
+
+
+                <button type="button" class="btn btn-outline" data-close-modal>
+
+                    Отмена
+
+                </button>
+
+
+                <button type="submit" class="btn btn-primary">
+
+                    Сохранить изменения
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>

@@ -23,6 +23,15 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+    express.json()
+);
+app.use(
+    express.urlencoded({
+        extended: true
+    })
+);
+
 app.use(session({
     secret: "supersecretkey",  // секретная фраза для подписи куки
     resave: false,              // не сохранять, если сессия не изменена
@@ -52,5 +61,5 @@ app.use("/", workspaceRoutes);
 connectWithRetry();
 
 app.listen(3000, () => {
-   logger.info("Server started http://localhost:3000");
+    logger.info("Server started http://localhost:3000");
 });

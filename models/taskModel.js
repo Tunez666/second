@@ -85,3 +85,72 @@ exports.createTask = async (taskData) => {
     return result.insertId;
 
 };
+
+exports.getTaskById = async (taskId, userId) => {
+
+
+    const sql = `
+
+SELECT 
+    t.*
+
+FROM tasks t
+
+JOIN workspaces w
+ON w.id = t.id_ws
+
+WHERE t.id = ?
+AND w.id_user = ?
+
+`;
+
+
+    const [result] = await db.query(
+        sql,
+        [
+            taskId,
+            userId
+        ]
+    );
+
+
+    return result[0];
+
+};
+
+exports.updateTask = async (taskId, data) => {
+
+
+    const sql = `
+
+UPDATE tasks
+
+SET
+
+title = ?,
+description = ?,
+status = ?,
+start_date = ?,
+due_date = ?,
+all_day = ?
+
+WHERE id = ?
+
+`;
+
+
+    await db.query(
+        sql,
+        [
+            data.title,
+            data.description,
+            data.status,
+            data.start_date || null,
+            data.due_date || null,
+            data.all_day ? 1 : 0,
+            taskId
+        ]
+    );
+
+
+};

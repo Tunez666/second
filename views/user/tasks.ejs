@@ -27,7 +27,8 @@
 
                             <% tasks.forEach(task=>{ %>
 
-                                <article class="task-card">
+                                <article class="task-card" data-modal="taskViewModal"
+                                    data-task-id="<%= task.id %>">
 
                                     <div class="task-card__header">
 
@@ -103,7 +104,9 @@
 
         </div>
 
+        <%- include('../modals/viewEdTask') %>
         <%- include("../modals/createTaskModal") %>
+        <%- include("../partials/toast") %>
 
     </body>
 

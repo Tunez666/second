@@ -12,9 +12,9 @@ logger.info("user routes loaded");
 //GET
 router.get("/dashboard", authMiddleware.isAuth, userController.showDashboard);
 
-router.get("/tasks", authMiddleware.isAuth, requireWorkspace,userController.showTasks);
+router.get("/tasks", authMiddleware.isAuth, requireWorkspace, userController.showTasks);
 
-//POST
+router.get("/tasks/:id", authMiddleware.isAuth, userController.getTask);
 
 
 

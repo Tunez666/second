@@ -30,9 +30,9 @@ exports.createWs = async (req, res) => {
 
 };
 
-exports.createTask = async(req,res)=>{
+exports.createTask = async (req, res) => {
 
-    try{
+    try {
 
         const {
             title,
@@ -60,29 +60,85 @@ exports.createTask = async(req,res)=>{
 
         req.session.toast = {
 
-            type:"success",
-            message:"Задача создана!"
+            type: "success",
+            message: "Задача создана!"
 
         };
 
 
-        res.redirect(`/workspace/${workspaceId}/tasks`);
+        res.redirect(`/tasks`);
 
 
-    }catch(err){
+    } catch (err) {
 
         logger.error(err);
 
 
         req.session.toast = {
 
-            type:"error",
-            message:"Не удалось создать задачу"
+            type: "error",
+            message: "Не удалось создать задачу"
 
         };
 
 
         res.redirect("/dashboard");
+
+    }
+
+};
+
+exports.updateTask = async (req, res) => {
+
+    try {
+
+        const userId = req.session.userId;
+
+        const taskId = req.params.id;
+
+
+        const task = await taskModel.getTaskById(
+            taskId,
+            userId
+        );
+
+
+        if (!task) {
+
+            req.session.toast = {
+                type: "error",
+                message: "Задача не найдена"
+            };
+
+        }
+
+
+        await taskModel.updateTask(
+            taskId,
+            req.body
+        );
+
+        req.session.toast = {
+
+            type: "success",
+            message: "Задача обновлена"
+
+        };
+
+        res.json({
+            success: true,
+            message: "Задача обновлена"
+        });
+
+
+    } catch (err) {
+
+        console.error(err);
+
+        req.session.toast = {
+            type: "error",
+            message: "Ошибка обновления задачи"
+        };
 
     }
 

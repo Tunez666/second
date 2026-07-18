@@ -11,5 +11,7 @@ router.post("/createWs", authMiddleware.isAuth, modalsController.createWs);
 
 router.post("/workspace/:workspaceId/tasks", authMiddleware.isAuth, modalsController.createTask);
 
+router.put("/tasks/:id", authMiddleware.isAuth, modalsController.updateTask);
+
 
 module.exports = router;
