@@ -41,23 +41,32 @@ exports.showTasks = async (req, res) => {
 
     try {
 
+
         const userId = req.session.userId;
 
         const workspaceId = req.session.workspaceId;
 
 
+
         if (!workspaceId) {
+
             return res.redirect("/dashboard");
+
         }
 
 
-        const workspaces = await wfModel.allWorkspaces(userId);
+
+        const workspaces =
+            await wfModel.allWorkspaces(userId);
 
 
-        const workspace = await wfModel.getWorkspaceById(
-            workspaceId,
-            userId
-        );
+
+        const workspace =
+            await wfModel.getWorkspaceById(
+                workspaceId,
+                userId
+            );
+
 
 
         if (!workspace) {
@@ -68,35 +77,70 @@ exports.showTasks = async (req, res) => {
         }
 
 
-        const tasks = await taskModel.tasksFromWs(
-            workspaceId
-        );
+
+        const tasks =
+            await taskModel.tasksFromWs(
+                workspaceId
+            );
+
+
+
+        const formattedTasks =
+            tasks.map(task => ({
+
+
+                ...task,
+
+
+                start_date_formatted:
+                    formatDate(task.start_date),
+
+
+                due_date_formatted:
+                    formatDate(task.due_date),
+
+
+                status_formatted:
+                    formatTaskStatus(task.status)
+
+
+            }));
+
 
 
         res.render(
             "user/tasks",
             {
+
                 workspaces,
+
                 workspace,
-                tasks,
+
+                tasks: formattedTasks,
+
                 workspaceId
+
             }
         );
 
 
+
     } catch (err) {
+
 
         console.error(err);
 
+
         res.status(500)
             .send("Ошибка загрузки задач");
+
 
     }
 
 };
 
 //отображение конкретной задачи по id на станице тасков
-exports.getTask = async(req,res)=>{ 
+exports.getTask = async (req, res) => {
 
 
     const userId = req.session.userId;
@@ -110,10 +154,10 @@ exports.getTask = async(req,res)=>{
     );
 
 
-    if(!task){
+    if (!task) {
 
         return res.status(404).json({
-            message:"Задача не найдена"
+            message: "Задача не найдена"
         });
 
     }

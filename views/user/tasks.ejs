@@ -21,54 +21,134 @@
                         </button>
                     </div>
 
+                    <div class="task-filters">
+
+
+                        <button class="filter-btn active" data-filter="all">
+
+                            Все
+
+                        </button>
+
+
+                        <button class="filter-btn" data-filter="todo">
+
+                            Не начато
+
+                        </button>
+
+
+                        <button class="filter-btn" data-filter="in_progress">
+
+                            В процессе
+
+                        </button>
+
+
+                        <button class="filter-btn" data-filter="done">
+
+                            Завершено
+
+                        </button>
+
+
+                    </div>
+
                     <% if(tasks && tasks.length> 0){ %>
 
                         <section class="tasks">
 
                             <% tasks.forEach(task=>{ %>
 
-                                <article class="task-card" data-modal="taskViewModal"
-                                    data-task-id="<%= task.id %>">
+                                <article class="task-card" data-modal="taskViewModal" data-task-id="<%= task.id %>"
+                                    data-status="<%= task.status %>">
+
 
                                     <div class="task-card__header">
 
-                                        <h3>
-                                            <%= task.title %>
-                                        </h3>
 
-                                        <span class="task-status">
-                                            <%= task.status %>
-                                        </span>
+                                        <div class="task-card__title">
+
+
+                                            <h3>
+                                                <%= task.title %>
+                                            </h3>
+
+
+                                            <span class="task-status">
+
+                                                <%= task.status_formatted.icon %>
+
+                                                    <%= task.status_formatted.label %>
+
+                                            </span>
+
+
+                                        </div>
+
 
                                     </div>
 
+
+
                                     <% if(task.description){ %>
+
                                         <p class="task-description">
 
                                             <%= task.description %>
 
                                         </p>
+
                                         <% } %>
 
-                                            <div class="task-card__footer">
 
-                                                <span>
 
-                                                    Начало: <%= task.start_date ? new
-                                                        Date(task.start_date).toLocaleString() : 'Не указано' %>
+                                            <div class="task-card__info">
 
-                                                </span>
 
-                                                <span>
-                                                    Конец: <%= task.due_date ? new Date(task.due_date).toLocaleString()
-                                                        : 'Не указано' %>
-                                                </span>
+                                                <div class="task-info-item">
 
-                                                <span>
-                                                    Весь день: <%= task.all_day ? 'Да' : 'Нет' %>
-                                                </span>
+                                                    <span>
+                                                        Начало
+                                                    </span>
+
+                                                    <strong>
+                                                        <%= task.start_date_formatted || "Не указано" %>
+                                                    </strong>
+
+                                                </div>
+
+
+
+                                                <div class="task-info-item">
+
+                                                    <span>
+                                                        Дедлайн
+                                                    </span>
+
+                                                    <strong>
+                                                        <%= task.due_date_formatted || "Не указан" %>
+                                                    </strong>
+
+                                                </div>
+
+
+
+                                                <div class="task-info-item">
+
+                                                    <span>
+                                                        Весь день
+                                                    </span>
+
+                                                    <strong>
+                                                        <%= task.all_day ? "Да" : "Нет" %>
+                                                    </strong>
+
+                                                </div>
+
 
                                             </div>
+
 
                                 </article>
 
@@ -104,10 +184,10 @@
 
         </div>
         <%- include('../modals/createWs') %>
-        <%- include('../modals/viewEdTask') %>
-        <%- include('../modals/confirmModal') %> 
-        <%- include("../modals/createTaskModal") %>
-        <%- include("../partials/toast") %>
+            <%- include('../modals/viewEdTask') %>
+                <%- include('../modals/confirmModal') %>
+                    <%- include("../modals/createTaskModal") %>
+                        <%- include("../partials/toast") %>
 
     </body>
 
