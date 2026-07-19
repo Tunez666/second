@@ -181,3 +181,48 @@ if (form) {
 
 
 }
+
+const confirmModal =
+    document.getElementById("confirmModal");
+
+
+const confirmBtn =
+    document.getElementById("confirm-action");
+
+document
+    .getElementById("delete-task-btn")
+    .addEventListener(
+        "click",
+        () => {
+
+
+            confirmModal.classList.add("active");
+
+
+        });
+
+confirmBtn.addEventListener(
+    "click",
+    async () => {
+
+
+        const response = await fetch(
+            `/tasks/${currentTaskId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+
+        const result =
+            await response.json();
+
+
+        if (result.success) {
+
+            window.location.reload();
+
+        }
+
+
+    });

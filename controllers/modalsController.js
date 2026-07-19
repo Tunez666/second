@@ -143,3 +143,55 @@ exports.updateTask = async (req, res) => {
     }
 
 };
+
+exports.deleteTask = async (req, res)=>{
+
+    try {
+
+        const userId = req.session.userId;
+
+        const taskId = req.params.id;
+
+
+        const task = await taskModel.getTaskById(
+            taskId,
+            userId
+        );
+
+
+        if(!task){
+
+            return res.status(404).json({
+                message:"Задача не найдена"
+            });
+
+        }
+
+
+        await taskModel.deleteTask(taskId);
+
+
+        req.session.toast = {
+
+            type:"success",
+            message:"Задача удалена"
+
+        };
+
+
+        res.json({
+            success:true
+        });
+
+
+    } catch(err){
+
+        console.error(err);
+
+        res.status(500).json({
+            message:"Ошибка удаления задачи"
+        });
+
+    }
+
+};

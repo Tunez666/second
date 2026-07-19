@@ -165,3 +165,27 @@
     box-shadow: var(--focus-ring);
 
 }
+
+.modalSelect{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+.modalSelect:focus{
+
+    border-color:var(--accent);
+}

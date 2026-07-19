@@ -78,3 +78,21 @@ header{
     background:var(--surface-hover);
 
 }
+
+.btn-delete{
+
+    margin-right:12px;
+
+    background:var(--error);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+.btn-delete:hover{
+
+    background:var(--error);
+
+}

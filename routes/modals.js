@@ -13,5 +13,7 @@ router.post("/workspace/:workspaceId/tasks", authMiddleware.isAuth, modalsContro
 
 router.put("/tasks/:id", authMiddleware.isAuth, modalsController.updateTask);
 
+router.delete("/tasks/:id", authMiddleware.isAuth, modalsController.deleteTask);
+
 
 module.exports = router;

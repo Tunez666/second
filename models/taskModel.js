@@ -154,3 +154,18 @@ WHERE id = ?
 
 
 };
+
+exports.deleteTask = async(id)=>{
+
+    const sql = `
+        DELETE FROM tasks
+        WHERE id = ?
+    `;
+
+
+    await db.query(
+        sql,
+        [id]
+    );
+
+};
