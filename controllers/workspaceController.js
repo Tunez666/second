@@ -1,33 +1,23 @@
 const wfModel = require("../models/wfModel");
 
+const workspaceService = require("../services/workspaceService");
 
 exports.showWorkspace = async (req, res) => {
 
-    const userId = req.session.userId;
-
-    const workspaceId = req.params.workspaceId;
-
-
-    const workspace = await wfModel.getWorkspaceById(
-        workspaceId,
-        userId
-    );
-
+    const workspace =
+        await workspaceService.getWorkspace(
+            req.session.userId,
+            req.params.workspaceId
+        );
 
     if (!workspace) {
-
         return res.status(404)
             .send("Пространство не найдено");
-
     }
 
-
-    res.render(
-        "user/workspace",
-        {
-            workspace
-        }
-    );
+    res.render("user/workspace", {
+        workspace
+    });
 
 };
 

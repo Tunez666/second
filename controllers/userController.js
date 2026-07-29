@@ -5,36 +5,17 @@ const taskModel = require("../models/taskModel");
 const { formatTaskStatus } = require("../utils/taskFormatter");
 const { formatDate } = require("../utils/dateFormatter");
 
+const dashboardService = require("../services/dashboardService");
+
 exports.showDashboard = async (req, res) => {
-    const email = req.session.email;
-    const id = req.session.userId;
 
-    const user = await userModel.selectUserByEmail(email);
+    const data = await dashboardService.getDashboard(
+        req.session.email,
+        req.session.userId
+    );
 
-    const workspaces = await wfModel.allWorkspaces(id);
+    res.render("user/dashboard", data);
 
-    const activeTasks = await taskModel.activeTasks(id);
-
-
-    workspaces.forEach(ws => {
-
-        ws.activeTasks = activeTasks
-            .filter(task => task.id_ws === ws.id)
-            .slice(0, 3)
-            .map(task => ({
-
-                ...task,
-
-                status:
-                    formatTaskStatus(task.status),
-
-                date:
-                    formatDate(task.updated_at)
-
-            }));
-
-    });
-    res.render("user/dashboard", { user, workspaces });
 };
 
 exports.showTasks = async (req, res) => {
